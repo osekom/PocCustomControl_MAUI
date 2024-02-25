@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML to PDF</title>
+  <script src="html2pdf.bundle.js"></script>
+</head>
+<body>
+  <h1>Hola, este es mi PDF</h1>
+  <p>Este es un ejemplo de contenido en el PDF.</p>
+
+  <!--<button id="generate-pdf">Generar PDF</button>-->
+
+  <script type="text/javascript">
+      document.getElementById('generate-pdf').addEventListener('click', function () {
+          GetPDF();
+        });
+
+      function GetPDF()
+      {
+          // Selecciona el elemento que deseas convertir a PDF
+          const element = document.body;
+
+          // Opciones para la conversión
+          const options = {
+              margin: 10,
+              filename: 'output.pdf',
+              image: { type: 'jpeg', quality: 0.98 },
+              html2canvas: { scale: 2 },
+              jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+          };
+
+          // Usa html2pdf para generar el PDF
+          const pdf = html2pdf(element, options).toPdf();
+
+          // Obtén el valor del PDF en base64
+          const base64data = pdf.output('datauristring');
+
+          console.log('PDF en base64:', base64data);
+          return base64data;
+      // Puedes enviar base64data a tu servidor o hacer lo que necesites con él
+      }
+  </script>
+</body>
+</html>
